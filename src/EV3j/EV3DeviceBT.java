@@ -21,9 +21,15 @@ public class EV3DeviceBT extends EV3Device {
     }
 
     public void connect(String URL) throws EV3DeviceException {
+        this.connect(URL, false);
+    }
+
+    public void connect(String URL, Boolean timeout) throws EV3DeviceException {
 
         try {
-            streamConnection = (StreamConnection) Connector.open(URL);
+            // "true" enables timeout detection based on Java system property bluecove.connect.timeout
+            // default timeout is 2 minutes (WIDCOMM and OSX)
+            streamConnection = (StreamConnection) Connector.open(URL, Connector.READ_WRITE, timeout);
             outStream = streamConnection.openOutputStream();
             inStream = streamConnection.openInputStream();
         } catch (IOException e) {
@@ -34,6 +40,7 @@ public class EV3DeviceBT extends EV3Device {
 
         connected = true;
     }
+
 
     public void disconnect() throws EV3DeviceException {
         try {
