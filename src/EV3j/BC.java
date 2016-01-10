@@ -1,5 +1,7 @@
 package EV3j;
 
+import java.io.IOException;
+
 /**
  * Definition of EV3 byte codes using bytecodes.c and bytecodes.h
  */
@@ -1051,4 +1053,43 @@ public class BC {
     public static final byte   vmCHARSET_WIFIPASSKEY        = 0x08;                         //!< Character set allowed in WiFi pass key
     public static final byte   vmCHARSET_WIFISSID           = 0x10;                         //!< Character set allowed in WiFi ssid
 
+    /**
+     * Created by Jozef on 05.01.2016.
+     */
+    public static class EV3CmdDir extends EV3Cmd {
+
+        public EV3CmdDir(){
+            super();
+            addVarsToHeader();
+        }
+
+        public EV3CmdDir(byte t) {
+            super(t);
+            addVarsToHeader();
+        }
+
+        public void reset() {
+            super.reset();
+            addVarsToHeader();
+        }
+
+        private void addVarsToHeader(){
+            byte[] variables = new byte[2];
+            try {
+                write(variables);
+            } catch (IOException e) {
+                // quietly ignore - shouldn't happen :-)
+            }
+
+        }
+
+        public void setLocalVariables(byte v){
+
+        }
+
+        public void setGlobalVariables(int v) {
+
+        }
+
+    }
 }
