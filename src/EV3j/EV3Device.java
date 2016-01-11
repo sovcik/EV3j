@@ -100,7 +100,7 @@ public abstract class EV3Device {
     }
 
     protected byte[] readFrom(InputStream fromDevice) throws EV3DeviceException {
-        return readFrom(fromDevice, 1, 1500); // expect at least 1 byte within 1000 ms by default
+        return readFrom(fromDevice, 1, 3000); // expect at least 1 byte within 3000 ms by default
     }
 
     // run file/program already stored at brick's filesystem
